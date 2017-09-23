@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FightGame
 {
-    public abstract class Animal
+    public abstract class Animal: IAnimal
     {
         public string Name { get; set; }
         public int HP { get; set; }

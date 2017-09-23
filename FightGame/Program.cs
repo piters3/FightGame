@@ -18,21 +18,19 @@ namespace FightGame
             var fighter2 = dog1;
 
             IntroduceFighters(fighter1, fighter2);
-
             bool MyTurn = SetFirstTurn(fighter1, fighter2);
-
             Fight(fighter1, fighter2, MyTurn);
-
             FightSummary(fighter1, fighter2);
         }
 
-        private static void IntroduceFighters(Cat fighter1, Dog fighter2)
+
+        private static void IntroduceFighters<T1, T2>(T1 fighter1, T2 fighter2) where T1 : IAnimal where T2 : IAnimal
         {
             fighter1.Introduce();
             fighter2.Introduce();
         }
 
-        private static void FightSummary(Cat fighter1, Dog fighter2)
+        private static void FightSummary<T1, T2>(T1 fighter1, T2 fighter2) where T1 : IAnimal where T2 : IAnimal
         {
             if (!fighter1.IsAlive())
             {
@@ -42,9 +40,12 @@ namespace FightGame
             {
                 Console.WriteLine($"\n\n{fighter2.Name} przegrał!!!");
             }
+            Console.WriteLine("Dowolny klawisz zamyka okno");
+            Console.ReadKey();
+
         }
 
-        private static void Fight(Cat fighter1, Dog fighter2, bool MyTurn)
+        private static void Fight<T1, T2>(T1 fighter1, T2 fighter2, bool MyTurn) where T1 : IAnimal where T2 : IAnimal
         {
             while (AreBothAlive(fighter1, fighter2))
             {
@@ -55,23 +56,13 @@ namespace FightGame
                 }
                 else
                 {
-                    Strike2(fighter1, fighter2);
+                    Strike(fighter2, fighter1);
                 }
                 MyTurn = !MyTurn;
             }
         }
 
-        private static void Strike2(Cat fighter1, Dog fighter2)
-        {
-            var hit = fighter2.Attack();
-            var armored = (fighter1.Armor * hit) / 100;
-            var armoredHit = hit - armored;
-            fighter1.HP -= armoredHit;
-            Console.WriteLine($"{fighter2.Name}");
-            Console.WriteLine($"\t zadał {hit} punktów obrażeń {fighter1.Name} (zaabsorbowano {armored}) pozostało {fighter1.HP} życia");
-        }
-
-        private static void Strike(Cat fighter1, Dog fighter2)
+        private static void Strike<T1, T2>(T1 fighter1, T2 fighter2) where T1 : IAnimal where T2 : IAnimal
         {
             var hit = fighter1.Attack();
             var armored = (fighter2.Armor * hit) / 100;
@@ -81,12 +72,12 @@ namespace FightGame
             Console.WriteLine($"\t zadał {hit} punktów obrażeń {fighter2.Name} (zaabsorbowano {armored}) pozostało {fighter2.HP} życia");
         }
 
-        private static bool AreBothAlive(Cat fighter1, Dog fighter2)
+        private static bool AreBothAlive<T1, T2>(T1 fighter1, T2 fighter2) where T1 : IAnimal where T2 : IAnimal
         {
             return fighter1.IsAlive() && fighter2.IsAlive();
         }
 
-        private static bool SetFirstTurn(Cat fighter1, Dog fighter2)
+        private static bool SetFirstTurn<T1, T2>(T1 fighter1, T2 fighter2) where T1 : IAnimal where T2 : IAnimal
         {
             Console.WriteLine("Dowolny klawisz zaczyna walkę!");
 
