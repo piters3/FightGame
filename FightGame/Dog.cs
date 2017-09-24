@@ -11,7 +11,7 @@ namespace FightGame
         public Dog(string name)
         {
             Name = name;
-            HP = 150;
+            HP = 120;
             Mana = 0;
             Damage = 25;
             Armor = 20;

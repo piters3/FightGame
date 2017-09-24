@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FightGame
 {
-    public abstract class Animal: IAnimal
+    public abstract class Animal : IAnimal
     {
         public string Name { get; set; }
         public int HP { get; set; }
@@ -42,6 +42,7 @@ namespace FightGame
 
         public void Introduce()
         {
+            Console.WriteLine($"Typ: {GetType().FullName.Substring(10)}");
             Console.WriteLine($"Imię wojownika: {Name}");
             Console.WriteLine($"Życie: {HP}");
             Console.WriteLine($"Mana: {Mana}");

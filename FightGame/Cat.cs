@@ -13,9 +13,9 @@ namespace FightGame
             Name = name;
             HP = 100;
             Mana = 0;
-            Damage = 15;
+            Damage = 18;
             Armor = 10;
-            Agility = 35;
+            Agility = 55;
         }
     }
 }

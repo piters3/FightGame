@@ -10,12 +10,9 @@ namespace FightGame
     {
         static void Main(string[] args)
         {
-            Cat cat1 = new Cat("Pazur");
+            Cat fighter1 = new Cat("Pazur");
             Cat cat2 = new Cat("Mleczarz");
-            Dog dog1 = new Dog("Azor");
-
-            var fighter1 = cat1;
-            var fighter2 = dog1;
+            Dog fighter2 = new Dog("Azor");
 
             IntroduceFighters(fighter1, fighter2);
             bool MyTurn = SetFirstTurn(fighter1, fighter2);
@@ -64,12 +61,22 @@ namespace FightGame
 
         private static void Strike<T1, T2>(T1 fighter1, T2 fighter2) where T1 : IAnimal where T2 : IAnimal
         {
-            var hit = fighter1.Attack();
-            var armored = (fighter2.Armor * hit) / 100;
-            var armoredHit = hit - armored;
-            fighter2.HP -= armoredHit;
-            Console.WriteLine($"{fighter1.Name}");
-            Console.WriteLine($"\t zadał {hit} punktów obrażeń {fighter2.Name} (zaabsorbowano {armored}) pozostało {fighter2.HP} życia");
+            Random rnd = new Random();
+
+            if (rnd.Next(1, 100) > fighter2.Agility - rnd.Next(10, 20))
+            {
+                var hit = fighter1.Attack();
+                var armored = (fighter2.Armor * hit) / 100;
+                var armoredHit = hit - armored;
+                fighter2.HP -= armoredHit;
+                Console.WriteLine($"{fighter1.Name}");
+                Console.WriteLine($"\t zadał {hit} punktów obrażeń {fighter2.Name} (zaabsorbowano {armored}) pozostało {fighter2.HP} życia");
+            }
+            else
+            {
+                Console.WriteLine($"{fighter2.Name} uniknął ataku!");
+            }
+
         }
 
         private static bool AreBothAlive<T1, T2>(T1 fighter1, T2 fighter2) where T1 : IAnimal where T2 : IAnimal
