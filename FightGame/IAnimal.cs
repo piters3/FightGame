@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FightGame
 {
-    interface IAnimal
+    public interface IAnimal
     {
         string Name { get; }
         int HP { get; set; }
